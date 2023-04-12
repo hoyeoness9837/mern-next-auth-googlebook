@@ -11,6 +11,10 @@ const bookSchema = new mongoose.Schema({
   image: String,
   link: String,
   id: String,
+  isSaved: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 export default mongoose.models.Book || mongoose.model('Book', bookSchema);
