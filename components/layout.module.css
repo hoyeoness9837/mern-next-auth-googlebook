@@ -1,0 +1,12 @@
+/* .section {
+    margin: auto;
+    padding: 40px;
+    padding-top: 40px;
+    text-align: center;
+} */
+
+.section__container {
+    position: relative;
+    max-width: 1200px;
+    margin: auto;
+}
