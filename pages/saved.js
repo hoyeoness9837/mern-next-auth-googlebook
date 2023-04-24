@@ -11,7 +11,7 @@ import {
   CardHeader,
 } from '@mui/material';
 import { FavoriteBorder } from '@mui/icons-material';
-import styles from '@/components/Home.module.css';
+import styles from '@/components/layout.module.css';
 
 export async function getServerSideProps(context) {
   const token = await hasToken(context.req);
@@ -61,11 +61,7 @@ export default function Saved() {
 
   const renderBooks = () => {
     return books.map((book) => (
-      <Card
-        key={book.id}
-        sx={{ width: '25%', minWidth: 220 }}
-        className={styles.card}
-      >
+      <Card key={book.id} sx={{ width: '25%', minWidth: 220 }}>
         <CardHeader title={book.title} subheader={book.author} />
         <CardMedia
           key={book.bookId}
@@ -87,8 +83,10 @@ export default function Saved() {
   };
 
   return (
-    <section className={styles.main}>
-      {books.length ? renderBooks() : <h1>No Saved Books</h1>}
+    <section className={styles.section}>
+      <div className={styles.container}>
+        {books.length ? renderBooks() : <h1>No Saved Books</h1>}
+      </div>
     </section>
   );
 }

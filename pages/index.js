@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import styles from '../components/layout.module.css';
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState('');
   const router = useRouter();
@@ -14,12 +15,12 @@ export default function Home() {
   };
 
   return (
-    <>
+    <section className={styles.section}>
       <h1>Google Books Search</h1>
       <form onSubmit={handleSubmit}>
         <input type='text' value={searchQuery} onChange={handleChange} />
         <button type='submit'>Search</button>
       </form>
-    </>
+    </section>
   );
 }

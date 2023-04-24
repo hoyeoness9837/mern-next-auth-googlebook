@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { Button, Input, InputLabel, Alert, Container } from '@mui/material';
+import { Button, Input, InputLabel, Alert } from '@mui/material';
 import axios from 'axios';
 
 const AuthForm = () => {
@@ -49,7 +49,7 @@ const AuthForm = () => {
   };
 
   return (
-    <Container>
+    <>
       {registered ? (
         <>
           <Alert severity='success'>You have successfully registered!</Alert>
@@ -90,7 +90,7 @@ const AuthForm = () => {
           {error && <Alert severity='error'>{error}</Alert>}
         </>
       )}
-    </Container>
+    </>
   );
 };
 

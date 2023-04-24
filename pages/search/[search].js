@@ -10,7 +10,7 @@ import {
   CardHeader,
 } from '@mui/material';
 import { Favorite } from '@mui/icons-material';
-import styles from '@/components/Home.module.css';
+import styles from '@/components/layout.module.css';
 
 export async function getServerSideProps(context) {
   const { search } = context.query;
@@ -53,39 +53,43 @@ export default function SearchResults({ books }) {
     }
   };
 
+  const renderBooks = () => {
+    return books.map((book) => (
+      <Card
+        key={book.id}
+        sx={{ width: '25%', minWidth: 220 }}
+        className={styles.card}
+      >
+        <CardHeader
+          title={trimString(book.volumeInfo.title, 30)}
+          subheader={trimString(
+            `Written by ${book.volumeInfo.authors?.join(', ')}`,
+            30
+          )}
+        />
+        <CardMedia
+          key={book.etag}
+          sx={{ height: 180, margin: 'auto' }}
+          image={book.volumeInfo.imageLinks?.smallThumbnail}
+          title={book.volumeInfo.title}
+          src='img'
+        />
+        <CardActions>
+          <Button onClick={() => handleSaveBook(book)}>
+            <Favorite />
+            Save
+          </Button>
+          <Link href={book.volumeInfo.previewLink} passHref legacyBehavior>
+            <CustomLink name='Preview' />
+          </Link>
+        </CardActions>
+      </Card>
+    ));
+  };
+
   return (
-    <section className={styles.main}>
-      {books.map((book) => (
-        <Card
-          key={book.id}
-          sx={{ width: '25%', minWidth: 220 }}
-          className={styles.card}
-        >
-          <CardHeader
-            title={trimString(book.volumeInfo.title, 30)}
-            subheader={trimString(
-              `Written by ${book.volumeInfo.authors?.join(', ')}`,
-              30
-            )}
-          />
-          <CardMedia
-            key={book.etag}
-            sx={{ height: 180, margin: 'auto' }}
-            image={book.volumeInfo.imageLinks?.smallThumbnail}
-            title={book.volumeInfo.title}
-            src='img'
-          />
-          <CardActions>
-            <Button onClick={() => handleSaveBook(book)}>
-              <Favorite />
-              Save
-            </Button>
-            <Link href={book.volumeInfo.previewLink} passHref legacyBehavior>
-              <CustomLink name='Preview' />
-            </Link>
-          </CardActions>
-        </Card>
-      ))}
+    <section className={styles.section}>
+      <div className={styles.container}>{renderBooks()}</div>
     </section>
   );
 }
