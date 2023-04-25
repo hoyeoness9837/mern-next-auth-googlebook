@@ -4,7 +4,7 @@ import { forwardRef } from 'react';
 const CustomLink = forwardRef(({ onClick, href, name }, ref) => {
   return (
     <>
-      <MuiLink href={href} onClick={onClick} ref={ref} target='_blank'>
+      <MuiLink href={href} onClick={onClick} ref={ref}>
         {name}
       </MuiLink>
     </>

@@ -19,7 +19,7 @@ async function updateUser(req, res) {
   try {
     await dbConnect();
     await User.findByIdAndUpdate(req.params.id, req.body);
-    res.status(201).json({ message: 'New user was created successfully!' });
+    res.status(201).json({ message: 'update successfully!' });
   } catch (error) {
     res.status(500).json({ message: error });
   }

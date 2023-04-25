@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
 import CustomLink from '@/components/CustomLink/CustomLink';
-import { hasToken } from '../utils/checkUser';
+import { hasToken } from '../../utils/checkUser';
 import {
   Button,
   Card,
@@ -61,10 +61,9 @@ export default function Saved() {
 
   const renderBooks = () => {
     return books.map((book) => (
-      <Card key={book.id} sx={{ width: '25%', minWidth: 220 }}>
+      <Card key={book.bookId} sx={{ width: '25%', minWidth: 220 }}>
         <CardHeader title={book.title} subheader={book.author} />
         <CardMedia
-          key={book.bookId}
           sx={{ height: 180, margin: 'auto' }}
           image={book.imageLinks}
           title={book.title}

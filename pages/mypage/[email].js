@@ -1,7 +1,10 @@
-import { hasToken } from '../utils/checkUser';
-
+import { hasToken } from '../../utils/checkUser';
+import { useRouter } from 'next/router';
+import styles from '@/components/layout.module.css';
 const ProtectedPage = () => {
-  return <div>This page is protected.</div>;
+  const router = useRouter();
+  const { email } = router.query;
+  return <section className={styles.section}>{email}'s profile</section>;
 };
 
 export default ProtectedPage;

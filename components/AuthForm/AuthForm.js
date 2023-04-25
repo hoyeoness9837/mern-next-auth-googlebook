@@ -31,8 +31,7 @@ const AuthForm = () => {
           password: passwordInput,
         });
       } catch (error) {
-        setError(error.message);
-        console.error(error);
+        setError('Invalid Email or password!');
       }
     } else {
       try {
@@ -42,8 +41,7 @@ const AuthForm = () => {
         });
         setRegistered(true);
       } catch (error) {
-        setError(error.message);
-        console.error(error);
+        setError(error.response.data.message);
       }
     }
   };
