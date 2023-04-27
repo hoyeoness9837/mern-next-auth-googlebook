@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import styles from '../components/layout.module.css';
 import AuthForm from '../components/AuthForm';
 
-export default function AuthPage() {
+function AuthPage() {
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
@@ -18,5 +18,15 @@ export default function AuthPage() {
     });
   }, [router]);
 
+  if (isLoading) {
+    return (
+      <section className={styles.section}>
+        <p>Loading...</p>
+      </section>
+    );
+  }
+
   return <section className={styles.section}>{<AuthForm />}</section>;
 }
+
+export default AuthPage;

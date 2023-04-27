@@ -2,36 +2,35 @@ import { getToken } from 'next-auth/jwt';
 
 const secret = process.env.NEXTAUTH_SECRET;
 
-// UTILS
-async function getTokenFromReq(req) {
-  const token = await getToken({ req, secret });
-  return token;
-}
-
 // CHECKING FUNCTIONS
-export async function hasToken(req) {
-  const token = await getTokenFromReq(req);
-  return Boolean(token);
-}
+export const hasToken = async (req) => {
+  const token = await getToken({ req, secret });
+  if (!token) {
+    return false;
+  }
+  return true;
+};
 
-export async function isAdmin(req) {
-  const token = await getTokenFromReq(req);
-  return Boolean(token && token.user.role === 'admin');
-}
+export const isAdmin = async (req) => {
+  const token = await getToken({ req, secret });
+  if (!token || token.user.role !== 'admin') {
+    return false;
+  }
+  return true;
+};
 
 // API MIDDLEWARE
-export async function hasTokenMiddleware(req, res, next) {
-  const token = await getTokenFromReq(req);
+export const hasTokenMiddleware = async (req, res, next) => {
+  const token = await getToken({ req, secret });
   if (!token) {
     return next(new Error('Not Allowed - Not logged in'));
   }
   next();
-}
-
-export async function isAdminMiddleware(req, res, next) {
-  const token = await getTokenFromReq(req);
+};
+export const isAdminMiddleware = async (req, res, next) => {
+  const token = await getToken({ req, secret });
   if (!token || token.user.role !== 'admin') {
     return next(new Error('Not Allowed - Not admin'));
   }
   next();
-}
+};
