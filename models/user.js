@@ -28,6 +28,7 @@ const userSchema = new mongoose.Schema({
     },
     select: false, //dont send back password after request
   },
+  savedBooks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Book' }],
   role: {
     type: String,
     default: 'user',

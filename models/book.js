@@ -7,15 +7,12 @@ const bookSchema = new mongoose.Schema({
   imageLinks: String,
   previewLink: String,
   bookId: String,
+  ownerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   isSaved: {
     type: Boolean,
     default: false,
   },
   savedAt: { type: Date, default: Date.now },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Users',
-  },
 });
 
 export default mongoose.models?.Book || mongoose.model('Book', bookSchema);

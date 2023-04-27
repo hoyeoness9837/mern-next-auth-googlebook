@@ -11,10 +11,19 @@
     text-align: center;
 }
 
-.container {
+.container_col {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
     justify-content: space-between;
+    align-items: center;
+    margin: auto;
+}
+
+.container_row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 
 .card {

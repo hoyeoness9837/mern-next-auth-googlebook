@@ -41,5 +41,8 @@
     ```
 
 ### Demo
+- tester account:
+    - email: tester@email.com
+    - password: Password1234!
 
 ### Deployed URL

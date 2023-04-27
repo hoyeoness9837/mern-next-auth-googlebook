@@ -3,7 +3,7 @@ import { AppBar, Toolbar, Typography, Button, Avatar } from '@mui/material';
 import { Favorite } from '@mui/icons-material';
 import { signIn, signOut } from 'next-auth/react';
 import { useSession } from 'next-auth/react';
-import styles from '../layout.module.css';
+import styles from './layout.module.css';
 
 const Navbar = () => {
   const { data: session, status } = useSession();
