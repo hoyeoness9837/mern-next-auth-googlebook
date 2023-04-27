@@ -16,11 +16,7 @@ export default function AuthPage() {
         setIsLoading(false);
       }
     });
-  }, []);
+  }, [router]);
 
-  return (
-    <section className={styles.section}>
-      {isLoading ? <h1>Loading...</h1> : <AuthForm />}
-    </section>
-  );
+  return <section className={styles.section}>{<AuthForm />}</section>;
 }
