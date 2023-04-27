@@ -22,31 +22,28 @@ export default function Home() {
   };
 
   return (
-    <section className={styles.section}>
-      <div className={styles.container}>
+    <main>
+      <section className={styles.section}>
         <h1>Google Books Search</h1>
-        <h1>
-          {session?.user?.email
-            ? `Welcome back ${session?.user?.email}`
-            : 'Sign up now!'}
-        </h1>
+        <h2>
+          {session?.user?.email ? `Welcome back ${session?.user?.email}` : null}
+        </h2>
 
         {session?.user?.email ? (
-          <>
+          <div className={styles.container_col}>
             <Paper
               component='form'
               sx={{
-                p: '2px 4px',
                 display: 'flex',
                 alignItems: 'center',
-                minWidth: 300,
+                p: '2px 4px',
               }}
               onSubmit={handleSubmit}
             >
               <InputBase
                 label='Search any books by title'
                 name='search'
-                sx={{ ml: 1, flex: 1 }}
+                sx={{ ml: 4, flex: 1 }}
                 value={searchQuery}
                 onChange={handleChange}
                 required
@@ -61,13 +58,21 @@ export default function Home() {
                 <Search />
               </IconButton>
             </Paper>
-          </>
+          </div>
         ) : (
-          <Link href='/login'>
-            <Button onClick={() => signIn()}>Sign In</Button>
-          </Link>
+          <>
+            <div>
+              First time visit?
+              <Link href='/login'>
+                <Button onClick={() => signIn()}>
+                  <h1>Sign up</h1>
+                </Button>
+              </Link>
+              now!
+            </div>
+          </>
         )}
-      </div>
-    </section>
+      </section>
+    </main>
   );
 }

@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { Button, Input, InputLabel, Alert } from '@mui/material';
+import styles from './layout.module.css';
 import axios from 'axios';
 
 const AuthForm = () => {
@@ -49,8 +50,9 @@ const AuthForm = () => {
   return (
     <>
       {registered ? (
-        <>
+        <div className={styles.container_col}>
           <Alert severity='success'>You have successfully registered!</Alert>
+          <br />
           <Button
             variant='outlined'
             color='primary'
@@ -58,35 +60,45 @@ const AuthForm = () => {
           >
             Login Now
           </Button>
-        </>
+        </div>
       ) : (
-        <>
+        <div className={styles.container_col}>
           <h1>{isLoggedin ? 'Login' : 'Sign Up'}</h1>
-          <form onSubmit={submitHandler}>
-            <InputLabel htmlFor='email'>Your Email</InputLabel>
-            <Input type='email' id='email' required inputRef={emailInputRef} />
+          <div>
+            <form onSubmit={submitHandler}>
+              <InputLabel htmlFor='email'>Your Email</InputLabel>
+              <Input
+                type='email'
+                id='email'
+                required
+                inputRef={emailInputRef}
+              />
 
-            <InputLabel htmlFor='password'>Your Password</InputLabel>
-            <Input
-              type='password'
-              id='password'
-              required
-              inputRef={passwordInputRef}
-            />
-
-            <Button type='submit'>
-              {isLoggedin ? 'Login' : 'Create Account'}
-            </Button>
-            <Button
-              variant='outlined'
-              color='primary'
-              onClick={switchAuthModeHandler}
-            >
-              {isLoggedin ? 'No Account? Create One' : 'Already a user? Login'}
-            </Button>
-          </form>
+              <InputLabel htmlFor='password'>Your Password</InputLabel>
+              <Input
+                type='password'
+                id='password'
+                required
+                inputRef={passwordInputRef}
+              />
+              <hr />
+              <Button type='submit'>
+                {isLoggedin ? 'Login' : 'Create Account'}
+              </Button>
+              <br />
+              <Button
+                variant='outlined'
+                color='primary'
+                onClick={switchAuthModeHandler}
+              >
+                {isLoggedin
+                  ? 'No Account? Create One'
+                  : 'Already a user? Login'}
+              </Button>
+            </form>
+          </div>
           {error && <Alert severity='error'>{error}</Alert>}
-        </>
+        </div>
       )}
     </>
   );

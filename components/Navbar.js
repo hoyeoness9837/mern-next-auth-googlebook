@@ -18,7 +18,13 @@ const Navbar = () => {
             {status === 'authenticated' && (
               <>
                 <Link href='/mypage/saved'>
-                  <Button color='inherit'>
+                  <Button
+                    color='inherit'
+                    size='medium'
+                    sx={{
+                      height: '40px',
+                    }}
+                  >
                     <Favorite />
                     Saved
                   </Button>
@@ -26,7 +32,7 @@ const Navbar = () => {
                 <Link href={`/mypage/${session.user.email}/`}>
                   <Avatar>{session.user.email[0]}</Avatar>
                 </Link>
-                <Button color='inherit' onClick={() => signOut()}>
+                <Button color='inherit' size='medium' onClick={() => signOut()}>
                   Sign Out
                 </Button>
               </>
@@ -34,7 +40,15 @@ const Navbar = () => {
             {status !== 'authenticated' && (
               <>
                 <Link href='/login'>
-                  <Button color='inherit' onClick={() => signIn()}>
+                  <Button
+                    color='inherit'
+                    size='medium'
+                    sx={{
+                      lineHeight: '8px',
+                      textAlign: 'center',
+                    }}
+                    onClick={() => signIn()}
+                  >
                     Sign In
                   </Button>
                 </Link>

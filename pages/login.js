@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { getSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
+import styles from '../components/layout.module.css';
 import AuthForm from '../components/AuthForm';
 
 export default function AuthPage() {
@@ -15,7 +16,11 @@ export default function AuthPage() {
         setIsLoading(false);
       }
     });
-  }, [router]);
+  }, []);
 
-  return <section>{isLoading ? <p>Signing In...</p> : <AuthForm />}</section>;
+  return (
+    <section className={styles.section}>
+      {isLoading ? <h1>Loading...</h1> : <AuthForm />}
+    </section>
+  );
 }

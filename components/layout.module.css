@@ -38,3 +38,11 @@
     margin-left: auto;
     display: flex;
 }
+
+@media screen and (max-width: 768px) {
+    .navlinks {
+      margin-left: auto;
+      text-align: center;
+      display: inline-block;
+   }
+  }
