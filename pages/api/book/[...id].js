@@ -17,7 +17,7 @@ async function saveBooks(req, res) {
       { $addToSet: { savedBooks: bookdId } } // used addToSet instead of
     );
 
-    return res.status(200).json({ msg: 'Book Saved successfully' });
+    return res.status(200).json({ message: 'Book Saved successfully' });
   } catch (error) {
     res.status(500).json({ message: error });
   }
@@ -40,7 +40,7 @@ async function unSaveBooks(req, res) {
     await dbConnect();
     await User.updateOne({ _id: userId }, { $pull: { savedBooks: bookId } });
     await Book.findByIdAndDelete(bookId);
-    return res.status(200).json({ msg: 'Book unsaved successfully' });
+    return res.status(200).json({ message: 'Book unsaved successfully' });
   } catch (error) {
     res.status(500).json({ message: error });
   }

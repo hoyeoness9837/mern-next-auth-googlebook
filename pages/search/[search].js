@@ -31,7 +31,7 @@ export default function SearchResults({ searchQuery }) {
       );
       setBookState(data.items);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

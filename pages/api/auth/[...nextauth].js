@@ -16,21 +16,19 @@ export default NextAuth({
         password: { label: 'Password', type: 'password' },
       },
       authorize: async (credentials) => {
-        dbConnect();
-        const user = await User.findOne({ email: credentials.email }).select(
-          '+password'
-        );
-
-        if (!user) {
-          throw new Error('No user with a matching email was found.');
+        try {
+          dbConnect();
+          const user = await User.findOne({ email: credentials.email }).select(
+            '+password'
+          );
+          const isPasswordValid = await user.comparePassword(
+            credentials.password
+          );
+          if (!isPasswordValid) return null;
+          return user;
+        } catch (error) {
+          console.error(error);
         }
-        const pwValid = await user.comparePassword(credentials.password);
-
-        if (!pwValid) {
-          throw new Error('Your password is invalid');
-        }
-
-        return user;
       },
     }),
   ],
@@ -48,8 +46,10 @@ export default NextAuth({
     session: async ({ session, token }) => {
       if (token) {
         session.user = token.user;
+        return session;
+      } else {
+        return null;
       }
-      return session;
     },
   },
   pages: {

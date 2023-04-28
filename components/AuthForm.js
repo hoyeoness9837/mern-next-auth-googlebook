@@ -32,7 +32,7 @@ const AuthForm = () => {
           password: passwordInput,
         });
       } catch (error) {
-        setError('Invalid Email or password!');
+        setError(error.response.data.message);
       }
     } else {
       try {

@@ -16,7 +16,7 @@ function AuthPage() {
         setIsLoading(false);
       }
     });
-  }, [router]);
+  }, []);
 
   if (isLoading) {
     return (
