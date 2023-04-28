@@ -8,7 +8,7 @@ import { Search } from '@mui/icons-material';
 import styles from '@/components/layout.module.css';
 
 export default function Home() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [searchQuery, setSearchQuery] = useState('');
   const router = useRouter();
 
@@ -24,41 +24,40 @@ export default function Home() {
   return (
     <main>
       <section className={styles.section}>
-        <h1>Google Books Search</h1>
-        <h2>
-          {session?.user?.email ? `Welcome back ${session?.user?.email}` : null}
-        </h2>
-
-        {session?.user?.email ? (
-          <div className={styles.container_col}>
-            <Paper
-              component='form'
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                p: '2px 4px',
-              }}
-              onSubmit={handleSubmit}
-            >
-              <InputBase
-                label='Search any books by title'
-                name='search'
-                sx={{ ml: 4, flex: 1 }}
-                value={searchQuery}
-                onChange={handleChange}
-                required
-              />
-              <IconButton
-                variant='outlined'
-                color='primary'
-                type='submit'
-                sx={{ p: '10px' }}
-                aria-label='search'
+        {status === 'authenticated' ? (
+          <>
+            <h1>Google Books Search</h1>
+            <h2>Welcome back {session.user.email}</h2>
+            <div className={styles.container_col}>
+              <Paper
+                component='form'
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  p: '2px 4px',
+                }}
+                onSubmit={handleSubmit}
               >
-                <Search />
-              </IconButton>
-            </Paper>
-          </div>
+                <InputBase
+                  label='Search any books by title'
+                  name='search'
+                  sx={{ ml: 4, flex: 1 }}
+                  value={searchQuery}
+                  onChange={handleChange}
+                  required
+                />
+                <IconButton
+                  variant='outlined'
+                  color='primary'
+                  type='submit'
+                  sx={{ p: '10px' }}
+                  aria-label='search'
+                >
+                  <Search />
+                </IconButton>
+              </Paper>
+            </div>
+          </>
         ) : (
           <>
             <div>
