@@ -22,7 +22,7 @@ export default function Signin() {
         email: emailInput,
         password: passwordInput,
       });
-      respond.ok ? router.push('/') : setError(respond.error);
+      respond.ok ? router.push('/landing') : setError(respond.error);
     } catch (error) {
       setError(error.response.data.message);
     }
