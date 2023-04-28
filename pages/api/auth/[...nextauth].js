@@ -43,12 +43,10 @@ export default NextAuth({
       }
       return token;
     },
-    session: async ({ session, token }) => {
+    session: ({ session, token }) => {
       if (token) {
         session.user = token.user;
         return session;
-      } else {
-        return null;
       }
     },
   },

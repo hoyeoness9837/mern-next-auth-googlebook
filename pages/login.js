@@ -8,14 +8,17 @@ function AuthPage() {
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
-  useEffect(() => {
-    getSession().then((session) => {
+  useEffect(async () => {
+    try {
+      const session = await getSession();
       if (session) {
         router.replace('/');
       } else {
         setIsLoading(false);
       }
-    });
+    } catch (error) {
+      console.error(error);
+    }
   }, []);
 
   if (isLoading) {
