@@ -19,7 +19,7 @@ export default function MyApp({
   pageProps: { session, ...pageProps },
 }) {
   return (
-    <>
+    <SessionProvider session={session}>
       <CacheProvider value={emotionCache}>
         <Head>
           <meta name='viewport' content='initial-scale=1, width=device-width' />
@@ -27,14 +27,13 @@ export default function MyApp({
         </Head>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <SessionProvider session={session}>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </SessionProvider>
+
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </ThemeProvider>
       </CacheProvider>
-    </>
+    </SessionProvider>
   );
 }
 
