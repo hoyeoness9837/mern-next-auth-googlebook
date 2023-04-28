@@ -32,6 +32,13 @@ export default NextAuth({
       },
     }),
   ],
+  pages: {
+    signIn: '/auth/signin',
+    newUser: '/auth/new-user',
+    // signOut: '/auth/signout',
+    // error: '/auth/error', // Error code passed in query string as ?error=
+    // verifyRequest: '/auth/verify-request', // (used for check email message)
+  },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
@@ -43,14 +50,31 @@ export default NextAuth({
       }
       return token;
     },
-    session: ({ session, token }) => {
+    async session({ session, token }) {
       if (token) {
         session.user = token.user;
         return session;
       }
     },
   },
-  pages: {
-    signIn: '/login',
-  },
+  // events: {
+  //   async signIn(message) {
+  //     /* on successful sign in */
+  //   },
+  //   async signOut(message) {
+  //     /* on signout */
+  //   },
+  //   async createUser(message) {
+  //     /* user created */
+  //   },
+  //   async updateUser(message) {
+  //     /* user updated - e.g. their email was verified */
+  //   },
+  //   async linkAccount(message) {
+  //     /* account (e.g. Twitter) linked to a user */
+  //   },
+  //   async session(message) {
+  //     /* session is active */
+  //   },
+  // },
 });

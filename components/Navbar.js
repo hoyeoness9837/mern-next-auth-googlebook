@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { AppBar, Toolbar, Typography, Button, Avatar } from '@mui/material';
 import { Favorite } from '@mui/icons-material';
-import { signIn, signOut } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 import { useSession } from 'next-auth/react';
 import styles from './layout.module.css';
 
@@ -17,6 +17,9 @@ const Navbar = () => {
           <div className={styles.navlinks}>
             {status === 'authenticated' && (
               <>
+                <Link href={`/mypage/${session.user.email}/`}>
+                  <Avatar>{session.user.email[0]}</Avatar>
+                </Link>
                 <Link href='/mypage/saved'>
                   <Button
                     color='inherit'
@@ -25,12 +28,8 @@ const Navbar = () => {
                       height: '40px',
                     }}
                   >
-                    <Favorite />
-                    Saved
+                    My Books
                   </Button>
-                </Link>
-                <Link href={`/mypage/${session.user.email}/`}>
-                  <Avatar>{session.user.email[0]}</Avatar>
                 </Link>
                 <Button color='inherit' size='medium' onClick={() => signOut()}>
                   Sign Out
@@ -39,7 +38,7 @@ const Navbar = () => {
             )}
             {status !== 'authenticated' && (
               <>
-                <Link href='/login'>
+                <Link href='/auth/signin'>
                   <Button
                     color='inherit'
                     size='medium'
@@ -47,7 +46,6 @@ const Navbar = () => {
                       lineHeight: '8px',
                       textAlign: 'center',
                     }}
-                    onClick={() => signIn()}
                   >
                     Sign In
                   </Button>

@@ -12,7 +12,7 @@
   --color-black: #000000;
 
   /* Font size */
-  --font-large: 20px;
+  --font-large: 24px;
   --font-medium: 14px;
   --font-regular: 12px;
   --font-small: 10px;
@@ -96,9 +96,9 @@ p {
 }
 
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 600px) {
   :root {
-    --font-large: 14px;
+    --font-large: 16px;
     --font-medium: 12px;
     --font-regular: 10px;
     --font-small: 8px;

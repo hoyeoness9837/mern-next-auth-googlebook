@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { useSession, signIn } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 
 import { IconButton, InputBase, Paper, Button } from '@mui/material';
@@ -63,8 +63,8 @@ export default function Home() {
           <>
             <div>
               First time visit?
-              <Link href='/login'>
-                <Button onClick={() => signIn()}>
+              <Link href='/auth/new-user'>
+                <Button>
                   <h1>Sign up</h1>
                 </Button>
               </Link>
