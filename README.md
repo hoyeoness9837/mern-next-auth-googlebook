@@ -50,3 +50,5 @@
   - password: Password1234!
 
 ### Deployed URL
+  - Click the following link to try now 
+    - ####  [LINK](https://mern-next-auth-googlebook.vercel.app/)
