@@ -12,7 +12,7 @@ const Navbar = () => {
       <AppBar position='static'>
         <Toolbar>
           <Typography variant='h6'>
-            <Link href='/'>Google Books Search</Link>
+            <Link href='/landing'>Google Books Search</Link>
           </Typography>
           <div className={styles.navlinks}>
             {status === 'authenticated' && (

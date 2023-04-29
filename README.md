@@ -44,11 +44,12 @@
   ```
 
 ### Demo
-
+<a href="https://watch.screencastify.com/v/1dSyaJ7pKGLxgy5Omv5Q">Video Link</a>
 - tester account:
   - email: tester@email.com
   - password: Password1234!
 
 ### Deployed URL
-  - Click the following link to try now 
-    - ####  [LINK](https://mern-next-auth-googlebook.vercel.app/)
+
+- Click the following link to try now
+  - #### [LINK](https://mern-next-auth-googlebook.vercel.app/)
