@@ -1,7 +1,5 @@
-import Link from 'next/link';
+import Link from '../src/Link';
 import { AppBar, Toolbar, Typography, Button, Avatar } from '@mui/material';
-import { Favorite } from '@mui/icons-material';
-import { signOut } from 'next-auth/react';
 import { useSession } from 'next-auth/react';
 import styles from './layout.module.css';
 
@@ -11,9 +9,9 @@ const Navbar = () => {
     <div>
       <AppBar position='static'>
         <Toolbar>
-          <Typography variant='h6'>
-            <Link href='/landing'>Google Books Search</Link>
-          </Typography>
+          <Link href='/'>
+            <Button color='white'>Google Book Search</Button>
+          </Link>
           <div className={styles.navlinks}>
             {status === 'authenticated' && (
               <>
@@ -21,34 +19,17 @@ const Navbar = () => {
                   <Avatar>{session.user.email[0]}</Avatar>
                 </Link>
                 <Link href='/mypage/saved'>
-                  <Button
-                    color='inherit'
-                    size='medium'
-                    sx={{
-                      height: '40px',
-                    }}
-                  >
-                    My Books
-                  </Button>
+                  <Button color='white'>My Books</Button>
                 </Link>
-                <Button color='inherit' size='medium' onClick={() => signOut()}>
-                  Sign Out
-                </Button>
+                <Link href='/api/auth/signout'>
+                  <Button color='white'>Sign Out</Button>
+                </Link>
               </>
             )}
             {status !== 'authenticated' && (
               <>
                 <Link href='/auth/signin'>
-                  <Button
-                    color='inherit'
-                    size='medium'
-                    sx={{
-                      lineHeight: '8px',
-                      textAlign: 'center',
-                    }}
-                  >
-                    Sign In
-                  </Button>
+                  <Button color='white'>Sign In</Button>
                 </Link>
               </>
             )}

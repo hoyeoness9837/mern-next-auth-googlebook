@@ -7,17 +7,22 @@ handler.post(createUser);
 async function createUser(req, res) {
   try {
     await dbConnect();
-    const { email, password } = req.body;
+    const { email } = req.body;
     const query = User.where({ email: email });
     const user = await query.findOne();
     if (user) {
-      return res.status(400).json({ message: 'The email already exists.' });
+      res.status(400).json({
+        message: 'You already have an account with this email.',
+        ok: false,
+      });
     } else {
       await User.create(req.body);
-      return res.status(200).json({ message: 'new user created.' });
+      res
+        .status(200)
+        .json({ message: 'You are successfully signed up.', ok: true });
     }
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    res.status(500).json({ message: error.message, ok: false });
   }
 }
 

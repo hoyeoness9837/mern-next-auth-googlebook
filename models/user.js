@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import validator from 'validator';
 
-const options = {
+const passwordValidOptions = {
   minLength: 8,
   minLowercase: 1,
   minUppercase: 1,
@@ -13,16 +13,17 @@ const options = {
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
-    required: true,
+    required: [true, 'Please enter email.'],
     unique: [true, 'Account already exists'],
     validate: [validator.isEmail, 'Please enter a valid email'],
   },
   password: {
     type: String,
-    required: [true, 'Please enter your email'],
+    required: true,
     minLength: [8, 'Your password must be at least 8 characters long'],
     validate: {
-      validator: (value) => validator.isStrongPassword(value, options),
+      validator: (value) =>
+        validator.isStrongPassword(value, passwordValidOptions),
       message:
         'Password must contains at least one lowercase, uppercase, number and special character',
     },

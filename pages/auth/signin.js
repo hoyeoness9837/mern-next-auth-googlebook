@@ -1,37 +1,41 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { Button, Input, InputLabel, Alert } from '@mui/material';
 import styles from '../../components/layout.module.css';
 
 export default function Signin() {
-  const emailInputRef = useRef(null);
-  const passwordInputRef = useRef(null);
   const router = useRouter();
-  const [error, setError] = useState('');
+  const emailInputRef = useRef();
+  const passwordInputRef = useRef();
+  const [status, setStatus] = useState(false);
+  const [error, setError] = useState(null);
 
-  const submitHandler = async (event) => {
+  useEffect(() => {
+    if (status) {
+      router.replace('/');
+    }
+  }, [status]);
+
+  async function submitHandler(event) {
     event.preventDefault();
 
-    const emailInput = emailInputRef.current.value;
-    const passwordInput = passwordInputRef.current.value;
+    const enteredEmail = emailInputRef.current.value;
+    const enteredPassword = passwordInputRef.current.value;
 
-    try {
-      const respond = await signIn('credentials', {
-        redirect: false,
-        email: emailInput,
-        password: passwordInput,
-      });
-      respond.ok ? router.push('/landing') : setError(respond.error);
-    } catch (error) {
-      setError(error.response.data.message);
-    }
-  };
+    const response = await signIn('credentials', {
+      redirect: false,
+      email: enteredEmail,
+      password: enteredPassword,
+    });
+    setStatus(response.ok);
+    setError(response.error);
+  }
 
   return (
-    <div className={styles.container_col}>
-      <h1>Already a user? Login</h1>
-      <div>
+    <section className={styles.section}>
+      <div className={styles.container_col}>
+        <h1>Login</h1>
         <form onSubmit={submitHandler}>
           <InputLabel htmlFor='email'>Your Email</InputLabel>
           <Input type='email' id='email' required inputRef={emailInputRef} />
@@ -45,13 +49,15 @@ export default function Signin() {
           />
           <hr />
           <Button type='submit'>Login</Button>
-          <br />
-          <Button onClick={() => router.push('/auth/new-user')}>
-            No Account? Create One
-          </Button>
         </form>
+        <Button onClick={() => router.push('/auth/signup')}>
+          You don't have account yet? Sign up
+        </Button>
+        {error && <Alert severity='error'>{error}</Alert>}
+        {status && (
+          <Alert severity='success'>You are successfully signed in.</Alert>
+        )}
       </div>
-      {error && <Alert severity='error'>{error}</Alert>}
-    </div>
+    </section>
   );
 }
