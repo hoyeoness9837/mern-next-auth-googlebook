@@ -2,9 +2,10 @@ import Book from '../../../models/book';
 import User from '../../../models/user';
 import dbConnect from '../../../utils/dbConnect';
 import handler from '../../../utils/handler';
-handler.post(saveBooks);
-handler.delete(unSaveBooks);
-handler.get(getSavedBooks);
+import { hasTokenMiddleware } from '../../../utils/checkUser';
+handler.use(hasTokenMiddleware).post(saveBooks);
+handler.use(hasTokenMiddleware).delete(unSaveBooks);
+handler.use(hasTokenMiddleware).get(getSavedBooks);
 
 async function saveBooks(req, res) {
   const { userId } = req.query;
