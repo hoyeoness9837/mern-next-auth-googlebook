@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import CustomLink from '@/components/CustomLink';
 import {
   Button,
@@ -13,7 +14,8 @@ import {
 import { FavoriteBorder } from '@mui/icons-material';
 import styles from '@/components/layout.module.css';
 
-export default function SearchResults({ searchQuery }) {
+export default function SearchResults() {
+  const router = useRouter();
   const [bookState, setBookState] = useState([]);
   const { data: session } = useSession();
 
@@ -22,17 +24,6 @@ export default function SearchResults({ searchQuery }) {
     return string.length > length
       ? string.substring(0, length) + '...'
       : string;
-  };
-
-  const handleSearchBook = async () => {
-    try {
-      const { data } = await axios.get(
-        `https://www.googleapis.com/books/${searchQuery}`
-      );
-      setBookState(data.items);
-    } catch (error) {
-      console.error(error);
-    }
   };
 
   const handleSaveBook = async (book) => {
@@ -61,10 +52,21 @@ export default function SearchResults({ searchQuery }) {
   };
 
   useEffect(() => {
-    if (searchQuery) {
-      handleSearchBook();
+    const { search } = router.query;
+    if (search !== undefined) {
+      const handleSearchBook = async (search) => {
+        try {
+          const { data } = await axios.get(
+            `https://www.googleapis.com/books/v1/volumes?q=${search}&printType=books&maxResults=32&key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`
+          );
+          setBookState(data.items);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      handleSearchBook(search);
     }
-  }, []);
+  }, [router.query]);
 
   const renderBooks = () => {
     return bookState.map((book) => (
@@ -105,15 +107,4 @@ export default function SearchResults({ searchQuery }) {
       <div className={styles.container_row}>{renderBooks()}</div>
     </section>
   );
-}
-
-export async function getServerSideProps(context) {
-  const { search } = context.query;
-  const key = process.env.GOOGLE_API_KEY;
-  const searchQuery = `v1/volumes?q=${search}&printType=books&maxResults=32&key=${key}`;
-  return {
-    props: {
-      searchQuery,
-    },
-  };
 }

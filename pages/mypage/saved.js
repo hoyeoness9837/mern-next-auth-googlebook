@@ -14,25 +14,27 @@ import {
 import { Favorite } from '@mui/icons-material';
 import styles from '@/components/layout.module.css';
 
-
 export default function Saved() {
   const { data: session } = useSession();
   const [books, setBooks] = useState([]);
   const userId = session?.user?._id;
+
   useEffect(() => {
     let isMounted = true;
+    if (isMounted) {
+      const fetchBooks = async () => {
+        try {
+          const { data } = await axios.get(
+            `/api/book/allbooks?&userId=${userId}`
+          );
 
-    const fetchBooks = async () => {
-      try {
-        const { data } = await axios.get(`/api/book/allbooks?&userId=${userId}`);
-        if (isMounted) {
           setBooks(data);
+        } catch (error) {
+          console.error(error);
         }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchBooks();
+      };
+      fetchBooks();
+    }
     return () => {
       isMounted = false;
     };

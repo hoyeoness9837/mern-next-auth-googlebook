@@ -1,5 +1,5 @@
 import Link from '../src/Link';
-import { AppBar, Toolbar, Typography, Button, Avatar } from '@mui/material';
+import { AppBar, Toolbar, Button, Avatar } from '@mui/material';
 import { useSession } from 'next-auth/react';
 import styles from './layout.module.css';
 
@@ -16,7 +16,9 @@ const Navbar = () => {
             {status === 'authenticated' && (
               <>
                 <Link href={`/mypage/${session.user.email}/`}>
-                  <Avatar>{session.user.email[0]}</Avatar>
+                  <Avatar sx={{ marginRight: '2px' }}>
+                    {session.user.email[0]}
+                  </Avatar>
                 </Link>
                 <Link href='/mypage/saved'>
                   <Button color='white'>My Books</Button>
