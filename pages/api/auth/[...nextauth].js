@@ -1,11 +1,9 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
 import User from '../../../models/user';
 import dbConnect from '../../../utils/dbConnect';
 
 export default NextAuth({
-  // adapter: MongoDBAdapter(dbConnect.instance),
   session: {
     jwt: true,
   },
