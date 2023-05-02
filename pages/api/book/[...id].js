@@ -3,15 +3,15 @@ import User from '../../../models/user';
 import dbConnect from '../../../utils/dbConnect';
 import handler from '../../../utils/handler';
 import { hasTokenMiddleware } from '../../../utils/checkUser';
-handler.use(hasTokenMiddleware).post(saveBooks);
-handler.use(hasTokenMiddleware).delete(unSaveBooks);
-handler.use(hasTokenMiddleware).get(getSavedBooks);
+handler.post(saveBooks);
+handler.delete(unSaveBooks);
+handler.get(getSavedBooks);
 
 async function saveBooks(req, res) {
   const userId = req.query.id[0];
   const bookdId = req.body.bookId;
   try {
-    dbConnect();
+    await dbConnect();
     await Book.create(req.body);
     await User.updateOne(
       { _id: userId },
@@ -39,7 +39,7 @@ async function unSaveBooks(req, res) {
   const userId = req.query.id[0];
   const bookId = req.query.id[1];
   try {
-    dbConnect();
+    await dbConnect();
     await User.updateOne({ _id: userId }, { $pull: { savedBooks: bookId } });
     await Book.findByIdAndDelete(bookId);
     return res.status(200).json({ message: 'Book unsaved successfully' });
