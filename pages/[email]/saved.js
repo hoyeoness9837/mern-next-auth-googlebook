@@ -3,7 +3,7 @@ import axios from 'axios';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import CustomLink from '@/components/CustomLink';
-import { hasToken } from '../../utils/checkUser';
+import { hasToken } from '@/utils/checkUser';
 import {
   Button,
   Card,
@@ -21,13 +21,10 @@ export default function Saved() {
 
   useEffect(() => {
     let isMounted = true;
-    if (isMounted) {
+    if (isMounted && userId) {
       const fetchBooks = async () => {
         try {
-          const { data } = await axios.get(
-            `/api/book/allbooks?&userId=${userId}`
-          );
-
+          const { data } = await axios.get(`/api/book/${userId}`);
           setBooks(data);
         } catch (error) {
           console.error(error);
@@ -38,11 +35,11 @@ export default function Saved() {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [userId]);
 
   const handleUnsaveBook = async (bookId) => {
     try {
-      await axios.delete(`/api/book/unsave?&bookId=${bookId}&userId=${userId}`);
+      await axios.delete(`/api/book/${userId}/${bookId}`);
       const filteredBooks = books.filter((b) => b._id !== bookId);
       setBooks(filteredBooks);
     } catch (error) {

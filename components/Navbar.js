@@ -15,12 +15,13 @@ const Navbar = () => {
           <div className={styles.navlinks}>
             {status === 'authenticated' && (
               <>
-                <Link href={`/mypage/${session.user.email}/`}>
+                <Link href={`/${session.user.email}`}>
                   <Avatar sx={{ marginRight: '2px' }}>
                     {session.user.email[0]}
                   </Avatar>
+                  
                 </Link>
-                <Link href='/mypage/saved'>
+                <Link href={`/${session.user.email}/saved`}>
                   <Button color='white'>My Books</Button>
                 </Link>
                 <Link href='/api/auth/signout'>

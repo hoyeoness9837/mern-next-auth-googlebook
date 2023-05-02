@@ -31,7 +31,7 @@ export default function SearchResults() {
       book.volumeInfo;
 
     try {
-      await axios.post(`/api/book/save?&userId=${userId}`, {
+      await axios.post(`/api/book/${userId}`, {
         title: trimString(title, 30),
         author: trimString(`Written by ${authors?.join(', ')}`, 30),
         description: description,
@@ -52,19 +52,19 @@ export default function SearchResults() {
   };
 
   useEffect(() => {
-    const { search } = router.query;
-    if (search !== undefined) {
-      const handleSearchBook = async (search) => {
+    const { title } = router.query;
+    if (title !== undefined) {
+      const handleSearchBook = async (title) => {
         try {
           const { data } = await axios.get(
-            `https://www.googleapis.com/books/v1/volumes?q=${search}&printType=books&maxResults=32&key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`
+            `https://www.googleapis.com/books/v1/volumes?q=${title}&printType=books&maxResults=32&key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`
           );
           setBookState(data.items);
         } catch (error) {
           console.error(error);
         }
       };
-      handleSearchBook(search);
+      handleSearchBook(title);
     }
   }, [router.query]);
 

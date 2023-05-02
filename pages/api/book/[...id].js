@@ -8,10 +8,10 @@ handler.use(hasTokenMiddleware).delete(unSaveBooks);
 handler.use(hasTokenMiddleware).get(getSavedBooks);
 
 async function saveBooks(req, res) {
-  const { userId } = req.query;
+  const userId = req.query.id[0];
   const bookdId = req.body.bookId;
   try {
-    await dbConnect();
+    dbConnect();
     await Book.create(req.body);
     await User.updateOne(
       { _id: userId },
@@ -25,20 +25,21 @@ async function saveBooks(req, res) {
 }
 
 async function getSavedBooks(req, res) {
-  const { userId } = req.query;
+  const userId = req.query.id[0];
   try {
     await dbConnect();
     const books = await Book.find({ ownerId: userId });
-    return res.status(200).json(books);
+    if (books) return res.status(200).json(books);
   } catch (error) {
     res.status(500).json({ message: error });
   }
 }
 
 async function unSaveBooks(req, res) {
-  const { userId, bookId } = req.query;
+  const userId = req.query.id[0];
+  const bookId = req.query.id[1];
   try {
-    await dbConnect();
+    dbConnect();
     await User.updateOne({ _id: userId }, { $pull: { savedBooks: bookId } });
     await Book.findByIdAndDelete(bookId);
     return res.status(200).json({ message: 'Book unsaved successfully' });
