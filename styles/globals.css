@@ -41,7 +41,7 @@ body {
 
 a {
   color: inherit;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 * {
@@ -96,12 +96,19 @@ p {
 }
 
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
   :root {
     --font-large: 16px;
     --font-medium: 12px;
     --font-regular: 10px;
     --font-small: 8px;
     --font-micro: 6px;
+  }
+
+  .mui-style-1qvr50w-MuiTypography-root {
+    font-size: 1rem !important;
+  }
+  .mui-style-nrdprl-MuiTypography-root{
+    font-size: 0.6rem !important;
   }
 }

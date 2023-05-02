@@ -19,7 +19,6 @@ const Navbar = () => {
                   <Avatar sx={{ marginRight: '2px' }}>
                     {session.user.email[0]}
                   </Avatar>
-                  
                 </Link>
                 <Link href={`/${session.user.email}/saved`}>
                   <Button color='white'>My Books</Button>

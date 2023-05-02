@@ -77,7 +77,7 @@ export default function Saved() {
   return (
     <section className={styles.section}>
       <div className={styles.container_row}>
-        {books?.length ? renderBooks() : <h1>No Saved Books</h1>}
+        {books.length > 0 ? renderBooks() : <h1>No Saved Books</h1>}
       </div>
     </section>
   );

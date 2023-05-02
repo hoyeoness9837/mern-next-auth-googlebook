@@ -8,7 +8,7 @@
 - Open the folder in your IDE.
 - `npm install`
 - create .env.local file in the root folder then fill out the following env variables.
-  1. DB_URI=mongodb+srv://username:password@cluster0.ry98yaj.mongodb.net/?retryWrites=true&w=majority
+  1. MONGODB_URI=mongodb+srv://username:password@cluster0.ry98yaj.mongodb.net/?retryWrites=true&w=majority
   2. NEXTAUTH_SECRET=hotdog
   3. GOOGLE_API_KEY=hotdog
 - `npm run dev ` or `npm build` and then `npm start`
