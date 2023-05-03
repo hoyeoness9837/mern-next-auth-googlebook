@@ -20,7 +20,7 @@ const Navbar = () => {
                     {session.user.email[0]}
                   </Avatar>
                 </Link>
-                <Link href={`/${session.user.email}/saved`}>
+                <Link href={`/saved`}>
                   <Button color='white'>My Books</Button>
                 </Link>
                 <Link href='/api/auth/signout'>

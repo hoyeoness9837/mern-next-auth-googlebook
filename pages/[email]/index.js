@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import styles from '@/components/layout.module.css';
+import { hasToken } from '@/utils/checkUser';
 
 const ProtectedPage = () => {
   const router = useRouter();
@@ -12,3 +13,18 @@ const ProtectedPage = () => {
 };
 
 export default ProtectedPage;
+
+export async function getServerSideProps(context) {
+  const token = await hasToken(context.req);
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+
+  return { props: {} };
+}

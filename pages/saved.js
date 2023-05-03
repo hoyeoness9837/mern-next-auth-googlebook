@@ -3,7 +3,6 @@ import axios from 'axios';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import CustomLink from '@/components/CustomLink';
-import { hasToken } from '@/utils/checkUser';
 import {
   Button,
   Card,
@@ -26,6 +25,7 @@ export default function Saved() {
         'Content-Type': 'application/json',
       },
     });
+    console.log(response);
     const jsonData = await response.json();
     setBooks(jsonData);
   };
@@ -33,6 +33,7 @@ export default function Saved() {
   useEffect(() => {
     let isMounted = true;
     if (isMounted && userId) {
+      console.log(userId);
       fetchBooks(userId);
     }
     return () => {
@@ -84,19 +85,4 @@ export default function Saved() {
       </div>
     </section>
   );
-}
-
-export async function getServerSideProps(context) {
-  const token = await hasToken(context.req);
-
-  if (!token) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    };
-  }
-
-  return { props: {} };
 }
