@@ -2,7 +2,6 @@ import Book from '../../../models/book';
 import User from '../../../models/user';
 import dbConnect from '../../../utils/dbConnect';
 import handler from '../../../utils/handler';
-import { hasTokenMiddleware } from '../../../utils/checkUser';
 handler.post(saveBooks);
 handler.delete(unSaveBooks);
 handler.get(getSavedBooks);
