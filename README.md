@@ -9,7 +9,7 @@
 - `npm install`
 - create .env.local file in the root folder then fill out the following env variables.
   1. MONGODB_URI=mongodb+srv://username:password@cluster0.ry98yaj.mongodb.net/?retryWrites=true&w=majority
-  2. NEXTAUTH_SECRET=openssl rand -base64 32
+  2. NEXTAUTH_SECRET= use ```openssl rand -base64 32``` in your terminal to create one.
   3. NEXT_PUBLIC_GOOGLE_API_KEY=your key
 - `npm run dev ` or `npm build` and then `npm start`
 - The app should be running on http://localhost:3000
