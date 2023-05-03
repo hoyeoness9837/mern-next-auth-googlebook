@@ -41,7 +41,7 @@ export default function SearchResults() {
         ownerId: userId,
         isSaved: true,
       });
-
+      router.prefetch('/saved');
       const booksNotSaved = bookState.filter(
         (allBook) => allBook.id !== book.id
       );
@@ -52,8 +52,8 @@ export default function SearchResults() {
   };
 
   useEffect(() => {
-    const { title } = router.query;
-    if (title !== undefined) {
+    if (router.isReady) {
+      const { title } = router.query;
       const handleSearchBook = async (title) => {
         try {
           const { data } = await axios.get(
@@ -66,7 +66,7 @@ export default function SearchResults() {
       };
       handleSearchBook(title);
     }
-  }, [router.query]);
+  }, [router]);
 
   const renderBooks = () => {
     return bookState.map((book) => (

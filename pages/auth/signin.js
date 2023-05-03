@@ -50,7 +50,7 @@ export default function Signin() {
           <hr />
           <Button type='submit'>Login</Button>
         </form>
-        <Button onClick={() => router.push('/auth/signup')}>
+        <Button onClick={() => router.replace('/auth/signup')}>
           You don't have account yet? Sign up
         </Button>
         {error && <Alert severity='error'>{error}</Alert>}
