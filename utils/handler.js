@@ -1,7 +1,7 @@
 import nc from 'next-connect';
 
 function onError(err, req, res, next) {
-  res.status(500).send(err.toString());
+  res.status(500).end();
 }
 
 const handler = nc({

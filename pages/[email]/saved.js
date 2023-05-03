@@ -19,23 +19,26 @@ export default function Saved() {
   const [books, setBooks] = useState([]);
   const userId = session?.user?._id;
 
+  const fetchBooks = async (user) => {
+    const response = await fetch(`/api/book/${user}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const jsonData = await response.json();
+    setBooks(jsonData);
+  };
+
   useEffect(() => {
     let isMounted = true;
     if (isMounted && userId) {
-      const fetchBooks = async () => {
-        try {
-          const { data } = await axios.get(`/api/book/${userId}`);
-          setBooks(data);
-        } catch (error) {
-          console.error(error);
-        }
-      };
-      fetchBooks();
+      fetchBooks(userId);
     }
     return () => {
       isMounted = false;
     };
-  }, [userId]);
+  }, []);
 
   const handleUnsaveBook = async (bookId) => {
     try {

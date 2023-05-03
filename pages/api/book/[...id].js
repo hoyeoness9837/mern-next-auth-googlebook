@@ -2,6 +2,7 @@ import Book from '../../../models/book';
 import User from '../../../models/user';
 import dbConnect from '../../../utils/dbConnect';
 import handler from '../../../utils/handler';
+
 handler.post(saveBooks);
 handler.delete(unSaveBooks);
 handler.get(getSavedBooks);
@@ -28,9 +29,13 @@ async function getSavedBooks(req, res) {
   try {
     await dbConnect();
     const books = await Book.find({ ownerId: userId });
-    if (books) return res.status(200).json(books);
+    if (books.length == 0) {
+      throw new Error('No Book Found');
+    } else {
+      return res.status(200).json(books);
+    }
   } catch (error) {
-    res.status(500).json({ message: error });
+    res.status(202).json({ message: error.message });
   }
 }
 

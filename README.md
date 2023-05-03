@@ -9,8 +9,8 @@
 - `npm install`
 - create .env.local file in the root folder then fill out the following env variables.
   1. MONGODB_URI=mongodb+srv://username:password@cluster0.ry98yaj.mongodb.net/?retryWrites=true&w=majority
-  2. NEXTAUTH_SECRET=hotdog
-  3. GOOGLE_API_KEY=hotdog
+  2. NEXTAUTH_SECRET=openssl rand -base64 32
+  3. NEXT_PUBLIC_GOOGLE_API_KEY=your key
 - `npm run dev ` or `npm build` and then `npm start`
 - The app should be running on http://localhost:3000
 
@@ -34,10 +34,12 @@
     "@mui/material": "^5.12.0",
     "axios": "^1.3.5",
     "bcrypt": "^5.1.0",
+    "dotenv": "^16.0.3",
     "mongoose": "^7.0.3",
     "next": "13.3.0",
     "next-auth": "^4.22.0",
     "next-connect": "^0.13.0",
+    "prop-types": "^15.8.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "validator": "^13.9.0"
