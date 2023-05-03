@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
-import { Button, IconButton, InputBase, Paper } from '@mui/material';
+import {  IconButton, InputBase, Paper } from '@mui/material';
 import { Search } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 import styles from '@/components/layout.module.css';

@@ -25,7 +25,6 @@ export default function Saved() {
         'Content-Type': 'application/json',
       },
     });
-    console.log(response);
     const jsonData = await response.json();
     setBooks(jsonData);
   };
@@ -33,7 +32,6 @@ export default function Saved() {
   useEffect(() => {
     let isMounted = true;
     if (isMounted && userId) {
-      console.log(userId);
       fetchBooks(userId);
     }
     return () => {
